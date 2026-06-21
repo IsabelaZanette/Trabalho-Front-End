@@ -65,15 +65,14 @@ function App() {
         <div className="header-logo-area">
           <div className="logo-badge">F</div>
           <div>
-            <h1>Falkon B2B</h1>
-            <p>Painel Operacional de Almoxarifado</p>
+            <h1>Falkon</h1>
           </div>
         </div>
 
-        <button 
-          className="refresh-btn" 
-          onClick={() => fetchProducts(true)} 
-          disabled={loading} 
+        <button
+          className="refresh-btn"
+          onClick={() => fetchProducts(true)}
+          disabled={loading}
           title="Recarregar Dados"
         >
           <RotateCw className={loading ? 'spin-animation' : ''} size={18} />
@@ -132,7 +131,7 @@ function App() {
       </main>
 
       <footer className="erp-footer">
-        <p>&copy; {new Date().getFullYear()} Falkon Almoxarifado B2B. Todos os direitos reservados. </p>
+        <p>&copy; {new Date().getFullYear()} Falkon. Todos os direitos reservados. </p>
       </footer>
     </div>
   );
