@@ -1,87 +1,54 @@
-import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useParams, Navigate } from 'react-router-dom';
+import { useProducts } from './hooks/useProducts';
 import DashboardStats from './components/DashboardStats';
 import InventoryTable from './components/InventoryTable';
 import AdjustStockForm from './components/AdjustStockForm';
 import { RotateCw } from 'lucide-react';
 import './App.css';
 
+// Componente Wrapper para a Rota de Ajuste de Estoque
+function AdjustStockPage({ products, onSave }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const product = products.find(p => String(p.id) === String(id));
+
+  if (!product) {
+    return (
+      <div className="error-card">
+        <h3>⚠️ Produto não encontrado</h3>
+        <p>O produto solicitado não foi localizado no inventário.</p>
+        <button className="btn btn-primary" onClick={() => navigate('/')}>
+          Voltar para Home
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <AdjustStockForm
+      product={product}
+      onSave={async (prodId, newQty) => {
+        await onSave(prodId, newQty);
+        navigate('/');
+      }}
+      onCancel={() => navigate('/')}
+    />
+  );
+}
+
 function App() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // Navegação 'list'
-  const [view, setView] = useState('list');
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [toast, setToast] = useState(null);
-
-  // URL base da API do json-server
-  const API_URL = 'http://localhost:3001/produtos';
-
-  const fetchProducts = async (forceLoading = false) => {
-    if (forceLoading) {
-      setLoading(true);
-    }
-    try {
-      const response = await fetch(API_URL);
-      if (!response.ok) {
-        throw new Error('Falha ao conectar com o banco de dados.');
-      }
-      const data = await response.json();
-      setProducts(data);
-      setError(null);
-    } catch (err) {
-      console.error(err);
-      setError('Não foi possível carregar os dados. Certifique-se de que o servidor está rodando (npm run server).');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const navigate = useNavigate();
+  const {
+    products,
+    loading,
+    error,
+    toast,
+    fetchProducts,
+    handleSaveStock
+  } = useProducts();
 
   const handleSelectProduct = (product) => {
-    setSelectedProduct(product);
-    setView('adjust');
-  };
-
-  const handleSaveStock = async (id, newQuantity) => {
-    try {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ estoque: newQuantity }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao salvar no banco de dados.');
-      }
-
-      // Re-carregar lista
-      await fetchProducts();
-
-      // Mostrar mensagem de sucesso (toast)
-      const updatedProduct = products.find(p => p.id === id);
-      showToast(`Estoque do item "${updatedProduct?.nome}" atualizado para ${newQuantity} unidades!`);
-
-      // Voltar para listagem
-      setView('list');
-      setSelectedProduct(null);
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
-
-  const showToast = (message) => {
-    setToast(message);
-    setTimeout(() => {
-      setToast(null);
-    }, 4000);
+    navigate(`/ajustar/${product.id}`);
   };
 
   return (
@@ -103,7 +70,12 @@ function App() {
           </div>
         </div>
 
-        <button className="refresh-btn" onClick={() => fetchProducts(true)} disabled={loading} title="Recarregar Dados">
+        <button 
+          className="refresh-btn" 
+          onClick={() => fetchProducts(true)} 
+          disabled={loading} 
+          title="Recarregar Dados"
+        >
           <RotateCw className={loading ? 'spin-animation' : ''} size={18} />
           {loading ? 'Sincronizando...' : 'Sincronizar'}
         </button>
@@ -120,13 +92,14 @@ function App() {
           <div className="error-card">
             <h3>⚠️ Servidor Offline</h3>
             <p>{error}</p>
-            <button className="btn btn-primary" onClick={fetchProducts}>
+            <button className="btn btn-primary" onClick={() => fetchProducts(true)}>
               Tentar Novamente
             </button>
           </div>
         ) : (
-          <>
-            {view === 'list' ? (
+          <Routes>
+            {/* Rota 1: Lista e Dashboard */}
+            <Route path="/" element={
               <div className="fade-in">
                 {/* Big Numbers */}
                 <DashboardStats products={products} />
@@ -143,20 +116,18 @@ function App() {
                   />
                 </div>
               </div>
-            ) : (
+            } />
+
+            {/* Rota 2: Formulário de Ajuste */}
+            <Route path="/ajustar/:id" element={
               <div className="fade-in">
-                {/* Formulário de Ajuste */}
-                <AdjustStockForm
-                  product={selectedProduct}
-                  onSave={handleSaveStock}
-                  onCancel={() => {
-                    setView('list');
-                    setSelectedProduct(null);
-                  }}
-                />
+                <AdjustStockPage products={products} onSave={handleSaveStock} />
               </div>
-            )}
-          </>
+            } />
+
+            {/* Redirecionar qualquer outra rota para Home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         )}
       </main>
 
