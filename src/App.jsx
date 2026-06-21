@@ -56,7 +56,12 @@ function AppContent({ products, loading, error, toast, fetchProducts, handleSave
           </div>
         </div>
 
-        <button className="refresh-btn" onClick={() => fetchProducts(true)} disabled={loading} title="Recarregar Dados">
+        <button 
+          className="refresh-btn" 
+          onClick={() => fetchProducts(true)} 
+          disabled={loading} 
+          title="Recarregar Dados"
+        >
           <RotateCw className={loading ? 'spin-animation' : ''} size={18} />
           {loading ? 'Sincronizando...' : 'Sincronizar'}
         </button>
@@ -73,7 +78,7 @@ function AppContent({ products, loading, error, toast, fetchProducts, handleSave
           <div className="error-card">
             <h3>⚠️ Servidor Offline</h3>
             <p>{error}</p>
-            <button className="btn btn-primary" onClick={fetchProducts}>
+            <button className="btn btn-primary" onClick={() => fetchProducts(true)}>
               Tentar Novamente
             </button>
           </div>
@@ -103,9 +108,8 @@ function AppContent({ products, loading, error, toast, fetchProducts, handleSave
         )}
       </main>
 
-      {/* Rodapé */}
       <footer className="erp-footer">
-        <p>&copy; {new Date().getFullYear()} Falkon Almoxarifado B2B. Todos os direitos reservados. Projeto Front-End.</p>
+        <p>&copy; {new Date().getFullYear()} Falkon Almoxarifado B2B. Todos os direitos reservados. </p>
       </footer>
     </div>
   );
