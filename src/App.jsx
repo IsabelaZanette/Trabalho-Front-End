@@ -1,23 +1,26 @@
 import { RotateCw } from 'lucide-react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useProducts } from './hooks/useProducts';
 import { useToast } from './hooks/useToast';
 import InventoryPage from './pages/InventoryPage';
 import AdjustStockPage from './pages/AdjustStockPage';
+import logo from './assets/falcao.png';
 import './App.css';
 
 // App é o ponto de entrada principal do aplicativo.
 // Ele compõe hooks personalizados e roteamento para renderizar o fluxo de gerenciamento de estoque.
 function App() {
-  // Hooks personalizados fornecem lógica de negócio reutilizável.
   const { products, loading, error, fetchProducts, updateProductStock } = useProducts();
   const { toast, showToast } = useToast();
 
   const handleSaveStock = async (id, newQuantity) => {
-    // Delegar a atualização de estoque ao hook personalizado e depois mostrar um toast.
     await updateProductStock(id, newQuantity);
     const updatedProduct = products.find((p) => String(p.id) === String(id));
-    showToast(`Estoque do item "${updatedProduct?.nome}" atualizado para ${newQuantity} unidades!`);
+    showToast(
+      updatedProduct
+        ? `Estoque do item "${updatedProduct.nome}" atualizado para ${newQuantity} unidades!`
+        : `Estoque atualizado para ${newQuantity} unidades.`
+    );
   };
 
   return (
@@ -30,14 +33,20 @@ function App() {
 
       <header className="erp-header">
         <div className="header-logo-area">
-          <div className="logo-badge">F</div>
           <div>
-            <h1>Falkon B2B</h1>
-            <p>Painel Operacional de Almoxarifado</p>
+            <img src={logo} alt="Logo Falkon" className="logo-badge" />
+          </div>
+          <div>
+            <h1>Falkon</h1>
           </div>
         </div>
 
-        <button className="refresh-btn" onClick={() => fetchProducts(true)} disabled={loading} title="Recarregar Dados">
+        <button
+          className="refresh-btn"
+          onClick={() => fetchProducts(true)}
+          disabled={loading}
+          title="Recarregar Dados"
+        >
           <RotateCw className={loading ? 'spin-animation' : ''} size={18} />
           {loading ? 'Sincronizando...' : 'Sincronizar'}
         </button>
@@ -58,7 +67,6 @@ function App() {
             </button>
           </div>
         ) : (
-          // Routes define os caminhos de navegação da aplicação e renderizam a página apropriada.
           <Routes>
             <Route
               path="/"
@@ -73,10 +81,9 @@ function App() {
             />
             <Route
               path="/adjust/:id"
-              element={
-                <AdjustStockPage products={products} onSaveStock={handleSaveStock} />
-              }
+              element={<AdjustStockPage products={products} onSaveStock={handleSaveStock} />}
             />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         )}
       </main>
