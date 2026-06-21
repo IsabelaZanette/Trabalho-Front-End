@@ -19,4 +19,4 @@ rápidos de incremento e decremento (+ e -) ou um campo numérico. Ao salvar, at
 a quantidade diretamente na base de dados (db.json) e retorna o usuário para a listagem
 atualizada.
 
-Programas utilizados: vscode, antigravity IDE, NODE.JS
+Programas utilizados: vscode, antigravity IDE, Node.JS, Vite.
