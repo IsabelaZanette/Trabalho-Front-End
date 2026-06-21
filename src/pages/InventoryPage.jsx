@@ -21,12 +21,6 @@ function InventoryPage({ products, loading, error, onRefresh }) {
       ) : (
         <>
           <DashboardStats products={products} />
-          <div className="refresh-section">
-            <button className="refresh-btn" onClick={onRefresh}>
-              <RotateCw size={16} />
-              Atualizar
-            </button>
-          </div>
           {/* InventoryTable is a reusable component for rendering the inventory list. */}
           <InventoryTable products={products} />
         </>

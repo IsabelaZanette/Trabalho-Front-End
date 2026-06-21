@@ -89,7 +89,7 @@ function App() {
       </main>
 
       <footer className="erp-footer">
-        <p>&copy; {new Date().getFullYear()} Falkon Almoxarifado B2B. Todos os direitos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} Falkon. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

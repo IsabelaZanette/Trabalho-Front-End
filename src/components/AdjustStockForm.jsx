@@ -76,9 +76,9 @@ function AdjustStockForm({ product, onSave, onCancel }) {
           <p className="counter-help">Clique nos botões de ajuste rápido ou digite um novo valor.</p>
 
           <div className="counter-control-wrapper">
-            <button 
-              type="button" 
-              className="counter-btn dec-btn" 
+            <button
+              type="button"
+              className="counter-btn dec-btn"
               onClick={handleDecrement}
               disabled={stockVal === 0}
               aria-label="Decrementar"
@@ -94,9 +94,9 @@ function AdjustStockForm({ product, onSave, onCancel }) {
               onChange={handleInputChange}
             />
 
-            <button 
-              type="button" 
-              className="counter-btn inc-btn" 
+            <button
+              type="button"
+              className="counter-btn inc-btn"
               onClick={handleIncrement}
               aria-label="Incrementar"
             >
@@ -107,7 +107,7 @@ function AdjustStockForm({ product, onSave, onCancel }) {
           <div className="status-preview-wrapper">
             <span>Status após salvar: </span>
             {stockVal === 0 ? (
-              <span className="stock-badge critical text-center">Crítico / Esgotado</span>
+              <span className="stock-badge critical text-center">Esgotado</span>
             ) : stockVal <= 3 ? (
               <span className="stock-badge warning text-center">Estoque Baixo</span>
             ) : (
@@ -117,19 +117,19 @@ function AdjustStockForm({ product, onSave, onCancel }) {
         </div>
 
         <div className="form-actions">
-          <button 
-            type="button" 
-            className="btn btn-secondary" 
+          <button
+            type="button"
+            className="btn btn-secondary"
             onClick={onCancel}
             disabled={isSubmitting}
           >
             <X size={16} />
             Cancelar
           </button>
-          
-          <button 
-            type="submit" 
-            className="btn btn-primary" 
+
+          <button
+            type="submit"
+            className="btn btn-primary"
             disabled={isSubmitting}
           >
             <Save size={16} />
