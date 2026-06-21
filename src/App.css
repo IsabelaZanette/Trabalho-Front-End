@@ -40,6 +40,19 @@
   --shadow-neon-primary: 0 0 20px rgba(99, 102, 241, 0.15);
 }
 
+[data-theme='light'] {
+  --bg-app: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-glow: rgba(99, 102, 241, 0.15);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --shadow-premium: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-neon-primary: 0 0 20px rgba(99, 102, 241, 0.08);
+}
+
 /* Global Reset & Basic Layout overrides */
 body {
   background-color: var(--bg-app);
@@ -112,6 +125,32 @@ body {
   font-size: 14px;
   color: var(--text-secondary);
   margin: 2px 0 0 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-neon-primary);
 }
 
 .refresh-btn {
@@ -581,7 +620,7 @@ body {
 .btn-secondary {
   background: #36648B;
   border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  color: #fff;
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -782,7 +821,7 @@ body {
   font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   text-align: center;
   box-sizing: border-box;
 }
@@ -945,4 +984,73 @@ body {
   .card-panel {
     padding: 20px;
   }
+}
+
+/* ==========================================================================
+   Light Mode Overrides & Enhancements
+   ========================================================================== */
+
+[data-theme='light'] .app-layout {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(239, 68, 68, 0.02) 0px, transparent 50%);
+}
+
+[data-theme='light'] .search-box input {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .search-box input:focus {
+  background: #fff;
+}
+
+[data-theme='light'] .filter-box select {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .filter-box select:focus {
+  background: #fff;
+}
+
+[data-theme='light'] .counter-input {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .counter-input:focus {
+  background: #fff;
+}
+
+[data-theme='light'] .action-btn {
+  background: rgba(99, 102, 241, 0.06);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+[data-theme='light'] .action-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+[data-theme='light'] .modern-table th {
+  background: rgba(0, 0, 0, 0.02);
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .modern-table tr:hover td {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+[data-theme='light'] .logo-badge {
+  background: linear-gradient(135deg, var(--primary) 0%, rgba(99, 102, 241, 0.1));
+}
+
+[data-theme='light'] .counter-btn {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .counter-btn:hover:not(:disabled) {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
 }

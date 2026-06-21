@@ -97,15 +97,14 @@ function InventoryTable({ products }) {
                     <td className="price-col">{formatPrice(product.preco)}</td>
                     <td className="stock-col">
                       <span
-                        className={`stock-number ${
-                          product.estoque === 0
-                            ? 'text-critical'
-                            : product.estoque <= 3
+                        className={`stock-number ${product.estoque === 0
+                          ? 'text-critical'
+                          : product.estoque <= 3
                             ? 'text-warning'
                             : 'text-healthy'
-                        }`}
+                          }`}
                       >
-                        {product.estoque} u.
+                        {product.estoque} un
                       </span>
                     </td>
                     <td>

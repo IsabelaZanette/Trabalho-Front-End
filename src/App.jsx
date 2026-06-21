@@ -1,4 +1,5 @@
-import { RotateCw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { RotateCw, Sun, Moon } from 'lucide-react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useProducts } from './hooks/useProducts';
 import { useToast } from './hooks/useToast';
@@ -12,6 +13,19 @@ import './App.css';
 function App() {
   const { products, loading, error, fetchProducts, updateProductStock } = useProducts();
   const { toast, showToast } = useToast();
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   const handleSaveStock = async (id, newQuantity) => {
     await updateProductStock(id, newQuantity);
@@ -41,15 +55,26 @@ function App() {
           </div>
         </div>
 
-        <button
-          className="refresh-btn"
-          onClick={() => fetchProducts(true)}
-          disabled={loading}
-          title="Recarregar Dados"
-        >
-          <RotateCw className={loading ? 'spin-animation' : ''} size={18} />
-          {loading ? 'Sincronizando...' : 'Sincronizar'}
-        </button>
+        <div className="header-actions">
+          <button 
+            className="theme-toggle-btn" 
+            onClick={toggleTheme}
+            title={theme === 'dark' ? "Ativar Modo Claro" : "Ativar Modo Escuro"}
+            aria-label="Alternar Tema"
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
+          <button
+            className="refresh-btn"
+            onClick={() => fetchProducts(true)}
+            disabled={loading}
+            title="Recarregar Dados"
+          >
+            <RotateCw className={loading ? 'spin-animation' : ''} size={18} />
+            {loading ? 'Sincronizando...' : 'Sincronizar'}
+          </button>
+        </div>
       </header>
 
       <main className="erp-main">
