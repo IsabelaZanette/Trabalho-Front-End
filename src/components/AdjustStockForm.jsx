@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Save, X, Plus, Minus, ArrowLeft, Archive } from 'lucide-react';
 
 function AdjustStockForm({ product, onSave, onCancel }) {

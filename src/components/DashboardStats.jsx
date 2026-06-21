@@ -1,4 +1,3 @@
-import React from 'react';
 import { Package, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 
 function DashboardStats({ products }) {

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import DashboardStats from './components/DashboardStats';
 import InventoryTable from './components/InventoryTable';
 import AdjustStockForm from './components/AdjustStockForm';
-import { PackageOpen, RotateCw } from 'lucide-react';
+import { RotateCw } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -18,8 +18,10 @@ function App() {
   // URL base da API do json-server
   const API_URL = 'http://localhost:3001/produtos';
 
-  const fetchProducts = async () => {
-    setLoading(true);
+  const fetchProducts = async (forceLoading = false) => {
+    if (forceLoading) {
+      setLoading(true);
+    }
     try {
       const response = await fetch(API_URL);
       if (!response.ok) {
@@ -101,7 +103,7 @@ function App() {
           </div>
         </div>
 
-        <button className="refresh-btn" onClick={fetchProducts} disabled={loading} title="Recarregar Dados">
+        <button className="refresh-btn" onClick={() => fetchProducts(true)} disabled={loading} title="Recarregar Dados">
           <RotateCw className={loading ? 'spin-animation' : ''} size={18} />
           {loading ? 'Sincronizando...' : 'Sincronizar'}
         </button>

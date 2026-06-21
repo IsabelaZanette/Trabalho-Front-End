@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Search, SlidersHorizontal, Edit2, TrendingDown } from 'lucide-react';
+import { useState } from 'react';
+import { Search, SlidersHorizontal, Edit2 } from 'lucide-react';
 
 function InventoryTable({ products, onSelectProduct }) {
   const [searchTerm, setSearchTerm] = useState('');
