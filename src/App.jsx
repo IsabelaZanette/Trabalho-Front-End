@@ -4,6 +4,7 @@ import DashboardStats from './components/DashboardStats';
 import InventoryTable from './components/InventoryTable';
 import AdjustStockForm from './components/AdjustStockForm';
 import { RotateCw } from 'lucide-react';
+import logo from './assets/falcao.png';
 import './App.css';
 
 // Componente Wrapper para a Rota de Ajuste de Estoque
@@ -63,7 +64,7 @@ function App() {
       {/* Header do ERP */}
       <header className="erp-header">
         <div className="header-logo-area">
-          <div className="logo-badge">F</div>
+          <div > <img src={logo} alt="Logo Falkon" className="logo-badge" /> </div>
           <div>
             <h1>Falkon</h1>
           </div>
