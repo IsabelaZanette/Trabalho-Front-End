@@ -222,9 +222,11 @@ body {
 
 .stat-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 12px;
+  position: relative;
+  min-height: 24px;
 }
 
 .stat-title {
@@ -233,10 +235,15 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .stat-icon {
   color: var(--text-muted);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .stat-card.total .stat-icon {

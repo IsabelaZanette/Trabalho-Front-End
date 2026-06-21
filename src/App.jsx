@@ -108,7 +108,6 @@ function App() {
                 <div className="card-panel">
                   <div className="panel-header">
                     <h2>Estoque Geral</h2>
-                    <span className="panel-subtitle">Lista de insumos e produtos para expedição</span>
                   </div>
                   <InventoryTable
                     products={products}
