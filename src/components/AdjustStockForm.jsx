@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Save, X, Plus, Minus, ArrowLeft, Archive } from 'lucide-react';
 
+// AdjustStockForm é um componente de formulário reutilizável para atualizar o estoque de um produto.
 function AdjustStockForm({ product, onSave, onCancel }) {
   const [stockVal, setStockVal] = useState(product.estoque);
   const [isSubmitting, setIsSubmitting] = useState(false);

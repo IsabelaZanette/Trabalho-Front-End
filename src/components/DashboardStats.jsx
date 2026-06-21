@@ -1,5 +1,6 @@
 import { Package, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 
+// DashboardStats é um componente de interface que resume métricas de estoque usando cards de Big Number.
 function DashboardStats({ products }) {
   const totalProducts = products.length;
   const outOfStock = products.filter(p => p.estoque === 0).length;

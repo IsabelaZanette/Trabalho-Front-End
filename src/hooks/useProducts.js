@@ -2,11 +2,15 @@ import { useState, useEffect, useCallback } from 'react';
 
 const API_URL = 'http://localhost:3001/produtos';
 
+// useProducts é um hook customizado que encapsula a lógica de carregamento e atualização de produtos.
+// Ele mantém o estado dentro do hook e expõe funções para buscar e atualizar o estoque.
 export function useProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // fetchProducts carrega a lista atual de produtos da API.
+  // forceLoading pode exibir o carregamento mesmo após a primeira carga.
   const fetchProducts = useCallback(async (forceLoading = false) => {
     if (forceLoading) {
       setLoading(true);
@@ -32,6 +36,8 @@ export function useProducts() {
     fetchProducts();
   }, [fetchProducts]);
 
+  // updateProductStock grava a nova quantidade de estoque na API,
+  // e em seguida atualiza a lista de produtos para manter a interface sincronizada.
   const updateProductStock = useCallback(async (id, newQuantity) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: 'PATCH',

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, SlidersHorizontal, Edit2 } from 'lucide-react';
 
+// InventoryTable é um componente de exibição que renderiza a grade de produtos.
+// Ele lida com busca, filtragem e usa navegação do React Router para ajustar o estoque.
 function InventoryTable({ products }) {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
@@ -110,6 +112,7 @@ function InventoryTable({ products }) {
                       <span className={stockStatus.className}>{stockStatus.label}</span>
                     </td>
                     <td>
+                      {/* Clicar neste botão leva você ao caminho de ajuste de estoque para este produto. */}
                       <button className="action-btn" onClick={() => navigate(`/adjust/${product.id}`)}>
                         <Edit2 size={14} />
                         Ajustar Estoque

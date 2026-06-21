@@ -6,11 +6,15 @@ import InventoryPage from './pages/InventoryPage';
 import AdjustStockPage from './pages/AdjustStockPage';
 import './App.css';
 
+// App é o ponto de entrada principal do aplicativo.
+// Ele compõe hooks personalizados e roteamento para renderizar o fluxo de gerenciamento de estoque.
 function App() {
+  // Hooks personalizados fornecem lógica de negócio reutilizável.
   const { products, loading, error, fetchProducts, updateProductStock } = useProducts();
   const { toast, showToast } = useToast();
 
   const handleSaveStock = async (id, newQuantity) => {
+    // Delegar a atualização de estoque ao hook personalizado e depois mostrar um toast.
     await updateProductStock(id, newQuantity);
     const updatedProduct = products.find((p) => String(p.id) === String(id));
     showToast(`Estoque do item "${updatedProduct?.nome}" atualizado para ${newQuantity} unidades!`);
@@ -54,6 +58,7 @@ function App() {
             </button>
           </div>
         ) : (
+          // Routes define os caminhos de navegação da aplicação e renderizam a página apropriada.
           <Routes>
             <Route
               path="/"

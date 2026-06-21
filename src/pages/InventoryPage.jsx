@@ -2,6 +2,8 @@ import DashboardStats from '../components/DashboardStats';
 import InventoryTable from '../components/InventoryTable';
 import { RotateCw } from 'lucide-react';
 
+// InventoryPage é um componente de página que mostra o dashboard e a tabela de inventário.
+// Ele é renderizado pela rota '/' no App.
 function InventoryPage({ products, loading, error, onRefresh }) {
   return (
     <div className="page-content">
@@ -25,6 +27,7 @@ function InventoryPage({ products, loading, error, onRefresh }) {
               Atualizar
             </button>
           </div>
+          {/* InventoryTable is a reusable component for rendering the inventory list. */}
           <InventoryTable products={products} />
         </>
       )}
